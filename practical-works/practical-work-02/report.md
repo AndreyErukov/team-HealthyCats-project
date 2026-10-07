@@ -48,7 +48,10 @@
 
 ## 3. Структура репозитория
 
-![photo_1.png](photo_1.png)
+(структура репозитория ч1.png)
+
+(структура репозитория ч2.png)
+
 
 ```text
 team-HealthyCats-project
@@ -113,7 +116,10 @@ team-HealthyCats-project
 
 ## 5. История коммитов
 
-![photo_2.png](photo_2.png)
+(коммиты 1.png)  
+(коммиты 2.png)  
+(коммиты 3.png)  
+(коммиты 4.png)  
 
 **Авторы коммитов:**
 * `ADAMANTINEevg` — Руководитель разработки
@@ -127,37 +133,39 @@ team-HealthyCats-project
 ## 6. Pull Requests и процесс ревью
 
 ### Руководитель разработки
-![photo_3.png](photo_3.png)
-* **Заголовок PR:** `feat: добавил описание роли и трудовые функции #5`
-* **Статус:** Объединено (Merged)
+(pull request рук1.png)  
+(pull request рук2.png)  
+(pull request рук3.png)  
 
 ---
 
 ### Архитектор ПО
-![photo_4.png](photo_4.png)
-* **Заголовок PR:** `feat: добавил описание роли и трудовых функций. #2`
-* **Статус:** Объединено (Merged)
+(pull req арх_ПО1.png)  
+(pull req арх_ПО2.png)  
+(pull req арх_ПО3.png)  
 
 ---
 
 ### Программист
-![photo_5.png](photo_5.png)
-* **Заголовок PR:** `feat: добавил описание функций #4`
-* **Статус:** Объединено (Merged)
+(pull req прог1.png)  
+(pull req прог2.png)  
+(pull req прог3.png)  
+
 
 ---
 
 ### Исследователь
-![photo_6.png](photo_6.png)
-* **Заголовок PR:** `Update roles-and-responsibilities.md #7`
-* **Статус:** Объединено (Merged)
+(pull req иссл1.png)  
+(pull req иссл2.png)  
+(pull req иссл3.png)  
+
 
 ---
 
 ### Специалист по тестированию
-![photo_7.png](photo_7.png)
-* **Заголовок PR:** `feat: добавил описание роли и трудовых функций #6`
-* **Статус:** Объединено (Merged)
+(pull req тест1.png)  
+(pull req тест2.png)  
+(pull req тест3.png)  
 
 ---
 
