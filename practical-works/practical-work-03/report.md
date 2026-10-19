@@ -86,3 +86,10 @@
 - Гибкость под нестабильный график.
 
 > Все решения по интерфейсу, напоминаниям, онбордингу и аналитике мы проверяем через призму трёх персон: **Артёма, Марии и Игоря**.
+
+---
+
+## 5. Дополнительные материалы и ссылки
+
+* 🔗 **[Опрос о потребностях пользователей в сервисе](https://docs.google.com/forms/d/e/1FAIpQLSe436Uxg5DIzKQL5f24jd2XoOI6hE-Oj28VWxP2W-ET5laj1g/viewform?usp=header)**
+* 📊 **[Результаты опроса (Таблица)](https://docs.google.com/spreadsheets/d/1ySmMUYHBjkj8ECXD6tkmkfGUmiWtmQ1qOjelUfEBYmc/edit?usp=sharing)**
