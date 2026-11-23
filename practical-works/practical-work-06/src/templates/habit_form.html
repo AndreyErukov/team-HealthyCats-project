@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% from 'partials/macros.html' import icon, csrf_field, day_picker, error_box with context %}
+{% block title %}{{ 'Изменить привычку' if form.id else 'Новая привычка' }}{% endblock %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <p class="breadcrumbs"><a href="{{ url_for('habits') }}">Привычки</a>{{ icon("chevron-right") }}<span>{{ 'Редактирование' if form.id else 'Новая привычка' }}</span></p>
+      <h1>{{ 'Твой план, твои правила' if form.id else 'Добавим привычку' }}<span class="greeting-dot">.</span></h1>
+      <p class="page-subtitle">Начни с небольшого действия. Его всегда можно изменить позже.</p>
+    </div>
+  </header>
+  <div class="form-layout">
+    <div>
+      <section class="template-banner">
+        <span class="icon-tile white-tile">{{ icon("sparkles") }}</span>
+        <div>
+          <h2>Подобрать готовый шаблон</h2>
+          <p>Читать, пить воду или больше двигаться</p>
+        </div>
+        <button type="button"
+                class="text-button"
+                data-open-dialog="template-dialog">Выбрать {{ icon("arrow-right") }}</button>
+      </section>
+      <div class="ai-entry">
+        <span>Или начни со своей идеи</span><button type="button"
+                                                    class="text-button"
+                                                    data-disclosure="ai-plan"
+                                                    aria-expanded="false"
+                                                    aria-controls="ai-plan">{{ icon("sparkles") }} Сгенерировать план с ИИ</button>
+      </div>
+      {# TODO(INTEGRATION): ai_client.py, ФТ-1.5. Никаких запросов к LLM. #}
+      <div class="ai-placeholder" id="ai-plan" hidden>
+        <span class="demo-label">ИИ пока не подключён</span>
+        <h3>Здесь появится план от ИИ</h3>
+        <p>Пока можно выбрать один из трёх шаблонов или заполнить форму самостоятельно. Этот блок не генерирует рекомендации.</p>
+      </div>
+      {# TODO(INTEGRATION): check_habit_limit. Вручную: /habits/new?limit=1. #}
+      <div class="inline-notice limit-warning"
+           id="habit-limit-warning"
+           {% if not limit_warning %}hidden{% endif %}
+           role="status">{{ icon("info") }}<p>Больше пяти привычек — заметная нагрузка. Попробуй начать с меньшего. Это пример предупреждения; лимит пока не подключён.</p></div>
+      <form class="card habit-form"
+            id="habit-form"
+            action="{{ url_for('save_habit') }}"
+            method="post">
+        {{ csrf_field() }}
+        {% if form.id %}<input type="hidden" name="id" value="{{ form.id }}">{% endif %}
+        {{ error_box(errors) }}
+        <fieldset class="form-field"><legend class="field-label">Какая это привычка?</legend><div class="segmented type-segmented"><label><input type="radio"
+                                                                                                                                                 name="type"
+                                                                                                                                                 value="useful"
+                                                                                                                                                 {% if form.type == 'useful' %}checked{% endif %}><span>{{ icon("sprout") }} Полезная</span></label><label><input type="radio"
+                                                                                                                                                                                                                                                                  name="type"
+                                                                                                                                                                                                                                                                  value="replacement"
+                                                                                                                                                                                                                                                                  {% if form.type == 'replacement' %}checked{% endif %}><span>{{ icon("shuffle") }} Замена привычки</span></label></div></fieldset>
+        <div class="form-field">
+          <label class="field-label" for="habit-name">Название привычки</label><input id="habit-name"
+                                                                                      name="name"
+                                                                                      value="{{ form.name }}"
+                                                                                      placeholder="Например, читать перед сном"
+                                                                                      maxlength="100"
+                                                                                      required
+                                                                                      autocomplete="off">
+        </div>
+        <fieldset class="form-field">
+          <legend class="field-label">Когда и что ты будешь делать?</legend>
+          <p class="field-hint">Привяжи маленький шаг к тому, что уже есть в твоём дне.</p>
+          <div class="two-fields formula-fields">
+            <div>
+              <label for="habit-trigger">После…</label><input id="habit-trigger"
+                                                              name="trigger"
+                                                              value="{{ form.trigger }}"
+                                                              placeholder="вечернего чая"
+                                                              maxlength="160"
+                                                              required>
+            </div>
+            <div>
+              <label for="habit-action">я сделаю…</label><input id="habit-action"
+                                                                name="action"
+                                                                value="{{ form.action }}"
+                                                                placeholder="прочитаю 10 страниц"
+                                                                maxlength="160"
+                                                                required>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-field"
+             data-replacement-field
+             {% if form.type != 'replacement' %}hidden{% endif %}><label class="field-label" for="replacement-plan">План замены при появлении тяги</label><textarea id="replacement-plan"
+                                                                                                                                                                    name="replacement_plan"
+                                                                                                                                                                    rows="3"
+                                                                                                                                                                    placeholder="Например, отложу телефон и выйду на короткую прогулку"
+                                                                                                                                                                    maxlength="400"
+                                                                                                                                                                    {% if form.type == 'replacement' %}required{% endif %}>{{ form.replacement_plan }}</textarea><p class="field-hint">Одно конкретное действие вместо привычного сценария.</p></div>
+        <fieldset class="form-field"><legend class="field-label">Время суток</legend><div class="segmented period-segmented">{% for period in periods %}<label><input type="radio"
+                                                                                                                                                                      name="period"
+                                                                                                                                                                      value="{{ period.id }}"
+                                                                                                                                                                      {% if form.period == period.id %}checked{% endif %}><span>{{ icon(period.icon) }} {{ period.label }}</span></label>{% endfor %}</div></fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">Выбери комфортный темп</legend>
+          <div class="two-fields">
+            <div>
+              <label for="habit-goal">Обычный шаг</label><input id="habit-goal"
+                                                                name="goal"
+                                                                value="{{ form.goal }}"
+                                                                placeholder="10 страниц"
+                                                                maxlength="120"
+                                                                required>
+            </div>
+            <div>
+              <label for="habit-minimum">Минимум на занятый день {{ icon("leaf") }}</label><input id="habit-minimum"
+                                                                                                  name="minimum"
+                                                                                                  value="{{ form.minimum }}"
+                                                                                                  placeholder="1 страница"
+                                                                                                  maxlength="120"
+                                                                                                  required>
+            </div>
+          </div>
+          <p class="field-hint">Минимум сохраняет движение вперёд, даже когда мало сил.</p>
+        </fieldset>
+        <fieldset class="form-field">
+          <legend class="field-label">В какие дни?</legend>
+          {{ day_picker(form.days) }}
+        </fieldset>
+        <label class="focus-option"><input type="checkbox"
+                                           name="is_focus"
+                                           {% if form.is_focus %}checked{% endif %}><span class="focus-option-star">{{ icon("star") }}</span><span><strong>Сделать фокусом дня</strong><small>Выделить эту привычку в сегодняшнем плане</small></span></label>
+        <div class="form-submit-row">
+          <button class="button button-primary" type="submit">{{ icon("check") }} {{ 'Сохранить изменения' if form.id else 'Сохранить привычку' }}</button><a href="{{ url_for('habits') }}" class="text-button">Отмена</a>
+        </div>
+        <p class="form-bottom-note">Можно изменить план в любой момент.</p>
+      </form>
+    </div>
+    <aside class="form-aside" aria-label="Подсказки к созданию привычки">
+      <article class="card aside-card">
+        <div class="aside-title">
+          <span class="icon-tile lavender-tile">{{ icon("lightbulb") }}</span>
+          <h2>Совет</h2>
+        </div>
+        <h3>Начать проще — лучше</h3>
+        <p>Выбери цель, которую реально выполнить даже в загруженный день. Регулярность важнее масштаба.</p>
+        <div class="quote-line">
+          Не десять новых правил.
+          <br>
+          Одна добрая перемена.
+        </div>
+      </article>
+      <article class="card choice-preview"><span class="small-label">Твой выбор</span><span class="icon-tile sage-tile">{{ icon("sprout") }}</span><h2 data-preview-name>{{ form.name or 'Одна привычка за раз' }}</h2><p data-preview-formula>{% if form.trigger and form.action %}После {{ form.trigger }} я {{ form.action }}.{% else %}Твой маленький план появится здесь, когда ты заполнишь форму.{% endif %}</p><div class="choice-preview-meta"><span>{{ icon("calendar-days") }}<span data-preview-days>{{ form.days|schedule_label }}</span></span><span>{{ icon("leaf") }}<span data-preview-minimum>{{ form.minimum or 'Комфортный минимум' }}</span></span></div><small>Создавай сначала несколько привычек, а не десятки сразу.</small></article>
+    </aside>
+  </div>
+{% endblock %}
+{% block modals %}
+  <dialog id="template-dialog"
+          class="template-dialog"
+          aria-labelledby="template-title">
+    <div class="dialog-heading">
+      <div>
+        <p class="eyebrow">Первый маленький шаг</p>
+        <h2 id="template-title">С чего хочется начать?</h2>
+      </div>
+      <button type="button"
+              class="icon-button"
+              data-close-dialog
+              aria-label="Закрыть шаблоны">{{ icon("x") }}</button>
+    </div>
+    <p class="dialog-intro">Три простых шаблона. Любую деталь можно изменить под себя.</p>
+    <div class="template-list">{% for template in templates %}<button type="button"
+                                                                      class="template-option"
+                                                                      data-template-id="{{ template.id }}"><span class="icon-tile sage-tile">{{ icon(template.icon) }}</span><span><strong>{{ template.title }}</strong><small>{{ template.description }}</small></span>{{ icon("arrow-right") }}</button>{% endfor %}</div>
+    <p class="dialog-footnote">Демонстрационный каталог · 3 шаблона</p>
+  </dialog>
+  <script type="application/json" id="habit-templates">{{ templates|tojson }}</script>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% from 'partials/macros.html' import icon, csrf_field, task_row with context %}
+{% block title %}Сегодня{% endblock %}
+{% block content %}
+  <header class="page-header today-header">
+    <div>
+      <p class="eyebrow">{{ date_label }}</p>
+      <h1>Доброе утро, {{ user.name }}<span class="greeting-dot">.</span></h1>
+      <p class="page-subtitle">Маленький шаг — тоже шаг. Выбери комфортный темп на сегодня.</p>
+    </div>
+    {# TODO(INTEGRATION): streak_calculator.py. #}
+    <div class="streak-mini">
+      <span class="icon-tile flame-tile">{{ icon("flame") }}</span>
+      <div><span class="small-label">Твоя серия</span><strong>{{ stats.streak }} {{ stats.streak|day_word }} <span>подряд</span></strong></div>
+    </div>
+  </header>
+  {% if paused %}
+    <div class="inline-notice pause-notice">{{ icon("pause") }}<span><strong>Сейчас можно выдохнуть.</strong> Включена демо-пауза, отметки временно недоступны.</span><a href="{{ url_for('schedule') }}">К расписанию {{ icon("arrow-right") }}</a></div>
+  {% endif %}
+  <div class="today-layout">
+    <section class="daily-plan" aria-label="Твой план на сегодня" data-plan-paused="{{ 'true' if paused else 'false' }}">
+      {% if focus %}
+        {% set focus_status = logs.get(focus.id) %}
+        <article class="focus-card" data-task-id="{{ focus.id }}" data-task-status="{{ focus_status or 'pending' }}">
+          <div class="focus-decoration">{% include "partials/plant.html" %}</div>
+          <div class="focus-copy">
+            <p class="eyebrow focus-label">{{ icon("sparkles") }} Фокус дня <span class="focus-label-line"></span></p>
+            <h2>{% if soft_habit_id == focus.id %}{{ focus.minimum_task }}{% else %}{{ focus.task }}{% endif %}</h2>
+            <p class="focus-meta">{{ icon("clock-3") }} {% if soft_habit_id == focus.id %}Мягкий шаг на сегодня{% else %}После {{ focus.trigger }} <span>·</span> {{ focus.duration }}{% endif %}</p>
+          </div>
+          <div class="focus-bottom">
+            <span class="focus-caption">Одна важная вещь. Без лишней спешки.</span>
+            <form action="{{ url_for('log_habit', habit_id=focus.id) }}" method="post" data-habit-log>
+              {{ csrf_field() }}
+              {% if focus_status in ["done", "minimum"] %}
+                <button class="button button-soft focus-done"
+                        name="status"
+                        value="reset"
+                        aria-label="Отменить отметку фокуса дня"
+                        {% if paused %}disabled{% endif %}>{{ icon("check") }} {{ 'Минимум сделан' if focus_status == 'minimum' else 'Готово' }} {{ icon("rotate-ccw") }}</button>
+              {% elif focus_status == "skipped" %}
+                <button class="button button-white"
+                        name="status"
+                        value="reset"
+                        {% if paused %}disabled{% endif %}>Вернуть в план {{ icon("rotate-ccw") }}</button>
+              {% else %}
+                <button class="button button-primary"
+                        name="status"
+                        value="{{ 'minimum' if soft_habit_id == focus.id else 'done' }}"
+                        {% if paused %}disabled{% endif %}>{{ icon("check") }} Отметить</button>
+              {% endif %}
+            </form>
+          </div>
+          {% if focus_status == "skipped" %}<p class="focus-skipped">На сегодня пропущено. Ты не обязан наверстывать.</p>{% endif %}
+        </article>
+      {% endif %}
+      <div class="plan-heading">
+        <h2>План на сегодня <span class="muted-heading">/</span></h2>
+        <span class="plan-counter" aria-live="polite" aria-atomic="true"><strong>{{ completed }}</strong> из {{ total }} выполнено</span>
+      </div>
+      <div class="progress-track"
+           role="progressbar"
+           aria-label="Выполнено задач"
+           aria-valuenow="{{ completed }}"
+           aria-valuemin="0"
+           aria-valuemax="{{ total or 1 }}">
+        <span style="width: {{ (completed / total * 100) if total else 0 }}%"></span>
+      </div>
+      {% for group in groups %}
+        <section class="period-card {% if group.id == 'day' %}period-current{% endif %}"
+                 aria-labelledby="period-{{ group.id }}">
+          <div class="period-heading"><span class="period-icon">{{ icon(group.icon) }}</span><h2 id="period-{{ group.id }}">{{ group.label }}</h2>{% if group.id == "day" %}<span class="now-badge"><i></i> Сейчас</span>{% endif %}<span class="period-caption">{{ group.time }}</span></div>
+          {% for habit in group.tasks %}{{ task_row(habit, logs.get(habit.id), paused) }}{% else %}<p class="empty-period">Здесь свободное время. {% if focus and focus.period == group.id %}Твой фокус — в карточке выше.{% endif %}</p>{% endfor %}
+        </section>
+      {% endfor %}
+      {% if not total %}<div class="card empty-state">{{ icon("sprout") }}<h2>Начнём с одной привычки?</h2><p>Для первого шага не нужен идеальный план.</p><a class="button button-primary" href="{{ url_for('new_habit') }}">{{ icon("plus") }} Добавить привычку</a></div>{% endif %}
+      <p class="plan-footnote">{{ icon("heart") }} Минимум тоже считается. Ты выбираешь свой темп.</p>
+    </section>
+    <aside class="today-aside" aria-label="Советы и поддержка">
+      <article class="card aside-card tip-card">
+        <div class="aside-title">
+          <span class="icon-tile lavender-tile">{{ icon("lightbulb") }}</span>
+          <h2>Совет дня</h2>
+        </div>
+        {# TODO(INTEGRATION): miss_support.get_daily_tip. #}
+        <h3>Начни с малого</h3>
+        <p>Небольшие действия легче повторять регулярно. Упростить шаг — это тоже прогресс.</p>
+        <span class="tip-footnote"><span></span> Меньше давления, больше заботы</span>
+      </article>
+      <article class="card aside-card">
+        <div class="aside-title">
+          <span class="icon-tile neutral-tile">{{ icon("pause") }}</span>
+          <h2>Нужна пауза?</h2>
+        </div>
+        <p>Планы меняются — это нормально. Сделай передышку, не теряя накопленный прогресс.</p>
+        <a class="button button-soft aside-button"
+           href="{{ url_for('schedule') }}">Настроить паузу {{ icon("arrow-right") }}</a>
+      </article>
+      <article class="card aside-card warm-card">
+        <div class="aside-title">
+          <span class="icon-tile warm-tile">{{ icon("heart-handshake") }}</span>
+          <h2>Не получилось?</h2>
+        </div>
+        <p>Пропуск не отменяет твой путь. Можно спокойно начать снова.</p>
+        <a class="text-link" href="{{ url_for('support') }}">Разобрать пропуск {{ icon("arrow-right") }}</a>
+      </article>
+    </aside>
+  </div>
+{% endblock %}

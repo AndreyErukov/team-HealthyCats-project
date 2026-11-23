@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from 'partials/macros.html' import icon with context %}
+{% block title %}Мои привычки{% endblock %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Мои планы</p>
+      <h1>Мои привычки<span class="greeting-dot">.</span></h1>
+      <p class="page-subtitle">Небольшие действия, которые становятся частью тебя.</p>
+    </div>
+    <a href="{{ url_for('new_habit') }}"
+       class="button button-primary header-action">{{ icon("plus") }} Новая привычка</a>
+  </header>
+  <div class="habits-toolbar">
+    <nav class="filter-tabs" aria-label="Фильтр привычек" data-habit-filters>
+      {% for value, label in [('all', 'Все'), ('useful', 'Полезные'), ('replacement', 'Замена привычки')] %}
+        <a href="{{ url_for('habits', type=value) }}"
+           data-filter="{{ value }}"
+           class="filter-tab {% if selected == value %}is-active{% endif %}"
+           {% if selected == value %}aria-current="true"{% endif %}>{{ label }} <span>{{ counts[value] }}</span></a>
+      {% endfor %}
+    </nav>
+    <span class="sort-caption">{{ icon("arrow-down-wide-narrow") }} Сначала — самое важное</span>
+  </div>
+  <p class="sr-only" aria-live="polite" data-filter-summary>Показано привычек: {{ counts[selected] }}</p>
+  <div class="habits-grid">
+    {% for habit in habits %}
+      <article class="card habit-card"
+               data-habit-type="{{ habit.type }}"
+               {% if selected != 'all' and selected != habit.type %}hidden{% endif %}>
+        <div class="habit-card-heading"><span class="icon-tile habit-icon {{ habit.color }}-tile">{{ icon(habit.icon) }}</span><div><h2>{{ habit.name }}</h2><p>{{ 'Полезная привычка' if habit.type == 'useful' else 'Замена привычки' }} <span>·</span> {{ habit.days|schedule_label }}</p></div>{% if habit.is_focus %}<span class="focus-star"
+                                                                                                                                                                                                                                                                                                                                role="img"
+                                                                                                                                                                                                                                                                                                                                title="Фокус дня"
+                                                                                                                                                                                                                                                                                                                                aria-label="Фокус дня">{{ icon("star") }}</span>{% endif %}</div>
+        {% if habit.type == "replacement" %}
+          <div class="replacement-description">
+            <span class="small-label">Когда появляется тяга</span>
+            <p>{{ habit.replacement_plan }}</p>
+            <span class="replacement-active">{{ icon("shield-check") }} План замены активен</span>
+          </div>
+        {% else %}
+          <dl class="habit-steps">
+            <div>
+              <dt>Обычный шаг</dt>
+              <dd>
+                {{ habit.goal }}
+              </dd>
+            </div>
+            <div>
+              <dt>{{ icon("leaf") }} Минимум</dt>
+              <dd>
+                {{ habit.minimum }}
+              </dd>
+            </div>
+          </dl>
+        {% endif %}
+        <div class="habit-card-footer"><span class="habit-streak">{{ icon('flame' if habit.type == 'useful' else 'sprout') }} {% if habit.type == "useful" %}Серия {{ habit.streak }} {{ habit.streak|day_word }}{% else %}{{ habit.clean_days }} {{ habit.clean_days|day_word }} без срыва{% endif %}</span><a class="text-link"
+                                                                                                                                                                                                                                                                                                                href="{{ url_for('edit_habit', habit_id=habit.id) }}"
+                                                                                                                                                                                                                                                                                                                aria-label="Изменить привычку: {{ habit.name }}">Изменить {{ icon("arrow-right") }}</a></div>
+      </article>
+    {% endfor %}
+  </div>
+  <div class="card empty-state"
+       data-filter-empty
+       {% if counts[selected] %}hidden{% endif %}>{{ icon("sprout") }}<h2>Здесь пока свободно</h2><p>Создай первую привычку в этой категории. Одной вполне достаточно.</p><a href="{{ url_for('new_habit') }}" class="button button-primary">{{ icon("plus") }} Новая привычка</a></div>
+  <section class="care-banner habits-bottom-banner">
+    <span class="banner-icon">{{ icon("settings-2") }}</span>
+    <div>
+      <h2>Хочешь изменить нагрузку?</h2>
+      <p>Упрости цель, выбери дни или дай себе время на паузу.</p>
+    </div>
+    <a href="{{ url_for('schedule') }}" class="text-link">Расписание {{ icon("arrow-right") }}</a>
+  </section>
+{% endblock %}

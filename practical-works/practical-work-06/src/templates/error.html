@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from 'partials/macros.html' import icon with context %}
+{% block title %}{{ code }} · Вернёмся к плану{% endblock %}
+{% block content %}
+  <section class="card error-page">
+    <span class="icon-tile sage-tile">{{ icon("cat") }}</span>
+    <p class="eyebrow">{{ code }}</p>
+    <h1>Сделаем шаг назад?</h1>
+    <p>{{ message }}</p>
+    <a class="button button-primary"
+       href="{{ url_for('today') }}">{{ icon("arrow-left") }} К сегодняшнему плану</a>
+  </section>
+{% endblock %}

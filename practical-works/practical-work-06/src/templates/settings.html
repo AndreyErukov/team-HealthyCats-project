@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% from 'partials/macros.html' import icon, csrf_field with context %}
+{% block title %}Настройки{% endblock %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Твой комфорт</p>
+      <h1>Настройки<span class="greeting-dot">.</span></h1>
+      <p class="page-subtitle">Пусть здесь будет удобно именно тебе.</p>
+    </div>
+  </header>
+  <div class="settings-layout">
+    <div class="settings-main">
+      <section class="card settings-card">
+        <div class="settings-section-heading">
+          <span class="icon-tile sage-tile">{{ icon("sun") }}</span>
+          <div>
+            <h2>Внешний вид</h2>
+            <p>Выбери атмосферу для своих маленьких шагов.</p>
+          </div>
+        </div>
+        <fieldset>
+          <legend class="field-label">Тема оформления</legend>
+          <div class="theme-options">
+            <label class="theme-option">
+              <input type="radio" name="theme" value="light" data-theme-choice checked><span class="theme-preview theme-preview-light" aria-hidden="true"><span class="preview-sidebar"><i></i><i></i><i></i></span><span class="preview-content"><i></i><i></i><i></i></span></span><span class="theme-option-label">{{ icon("sun") }} Светлая<span class="choice-check">{{ icon("check") }}</span></span></label><label class="theme-option"><input type="radio" name="theme" value="dark" data-theme-choice><span class="theme-preview theme-preview-dark" aria-hidden="true"><span class="preview-sidebar"><i></i><i></i><i></i></span><span class="preview-content"><i></i><i></i><i></i></span></span><span class="theme-option-label">{{ icon("moon") }} Тёмная<span class="choice-check">{{ icon("check") }}</span></span>
+              </label>
+            </div>
+          </fieldset>
+        </section>
+        <section class="card settings-card">
+          <div class="settings-section-heading">
+            <span class="icon-tile lavender-tile">{{ icon("type") }}</span>
+            <div>
+              <h2>Размер шрифта</h2>
+              <p>Чтобы всё важное легко читалось.</p>
+            </div>
+          </div>
+          <fieldset>
+            <legend class="sr-only">Размер текста</legend>
+            <div class="segmented font-options">
+              <label>
+                <input type="radio" name="font" value="normal" data-font-choice checked><span><b class="font-sample-normal">Аа</b> Обычный</span></label><label><input type="radio" name="font" value="large" data-font-choice><span><b class="font-sample-large">Аа</b> Крупный</span>
+                </label>
+              </div>
+            </fieldset>
+            <div class="font-preview">
+              <span class="small-label">Вот так будет выглядеть текст</span>
+              <p>
+                Маленький шаг — тоже шаг.
+                <br>
+                Выбирай свой комфортный темп.
+              </p>
+            </div>
+            <p class="settings-save-hint">{{ icon("circle-check") }} Изменения сохраняются автоматически в этом браузере.</p>
+          </section>
+        </div>
+        <aside class="settings-aside">
+          <section class="card profile-settings">
+            <span class="avatar avatar-large">Е</span>
+            <h2>{{ user.name }}</h2>
+            <p>Демонстрационный профиль</p>
+            <div class="profile-info-row"><span>Имя пользователя</span><strong>{{ user.name }}</strong></div>
+            <a href="{{ url_for('logout') }}"
+               class="button button-outline button-full">{{ icon("log-out") }} Выйти</a><small>Настоящая авторизация пока не подключена. Кнопка откроет экран входа и сбросит демо-сессию.</small>
+          </section>
+          <details class="card demo-details">
+            <summary>{{ icon("info") }} О демоверсии {{ icon("chevron-down") }}</summary>
+            <div>
+              <p>Серии, статистика, советы и ИИ — заглушки. Изменения привычек и расписания хранятся только в памяти стенда.</p>
+              <p>Тестовый день: 9 ноября 2026. Тема и шрифт хранятся отдельно в localStorage.</p>
+              <form action="{{ url_for('reset_demo') }}" method="post">
+                {{ csrf_field() }}<button class="text-button"
+                                          type="submit">{{ icon("rotate-ccw") }} Сбросить демо-данные</button>
+              </form>
+            </div>
+          </details>
+        </aside>
+      </div>
+{% endblock %}

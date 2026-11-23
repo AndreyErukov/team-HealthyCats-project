@@ -1,0 +1,91 @@
+{% from 'partials/macros.html' import icon, brand, csrf_field with context %}
+<!DOCTYPE html>
+<html lang="ru" data-theme="light" data-font="normal">
+  <head>
+    {% include "partials/head.html" %}
+    <title>{% block title %}Твой план{% endblock %} · бережно</title>
+  </head>
+  <body>
+    {% include "partials/icons.html" %}
+    <a href="#main-content" class="skip-link">Перейти к содержимому</a>
+    <header class="mobile-header" id="mobile-header">
+      {{ brand() }}
+      <button class="icon-button"
+              id="menu-toggle"
+              aria-controls="sidebar"
+              aria-expanded="false"
+              aria-label="Открыть меню">{{ icon("menu") }}</button>
+    </header>
+    <button class="sidebar-overlay"
+            id="sidebar-overlay"
+            aria-label="Закрыть меню"
+            tabindex="-1"
+            hidden></button>
+    <aside class="sidebar" id="sidebar" aria-label="Основное меню">
+      <div class="sidebar-brand">
+        {{ brand() }}<button class="icon-button sidebar-close"
+                             id="menu-close"
+                             aria-label="Закрыть меню">{{ icon("x") }}</button>
+      </div>
+      <p class="nav-caption">ТВОЁ ПРОСТРАНСТВО</p>
+      <nav class="main-nav" aria-label="Разделы сайта">
+        {% for id, label, symbol in [('today', 'Сегодня', 'house'), ('habits', 'Привычки', 'list-checks'), ('statistics', 'Статистика', 'chart-no-axes-column-increasing'), ('support', 'Поддержка', 'heart-handshake')] %}
+          <a href="{{ url_for(id) }}"
+             class="nav-link {% if active == id %}is-active{% endif %}"
+             {% if active == id %}aria-current="page"{% endif %}>
+            {{ icon(symbol) }}<span>{{ label }}</span>{% if id == "habits" %}<span class="nav-count">{{ habit_count }}</span>{% endif %}
+          </a>
+        {% endfor %}
+        <div class="nav-divider" role="separator"></div>
+        <a href="{{ url_for('settings') }}"
+           class="nav-link {% if active == 'settings' %}is-active{% endif %}"
+           {% if active == 'settings' %}aria-current="page"{% endif %}>{{ icon("settings-2") }}<span>Настройки</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-note">
+          {{ icon("sprout") }}
+          <p>
+            Не быстрее.
+            <br>
+            <strong>А бережнее к себе.</strong>
+          </p>
+        </div>
+        <div class="profile">
+          <a href="{{ url_for('settings') }}" class="profile-link"><span class="avatar">Е</span><span><strong>{{ user.name }}</strong><small>Мой профиль</small></span></a>
+          {# TODO(INTEGRATION): auth.py. Пока ссылка-заглушка, как в ТЗ. #}
+          <a href="#"
+             class="icon-button profile-exit"
+             data-demo-logout
+             aria-label="Выйти — пока недоступно"
+             title="Авторизация пока не подключена">{{ icon("log-out") }}</a>
+        </div>
+      </div>
+    </aside>
+    <main class="main-shell" id="main-content" tabindex="-1">
+      <div class="page-content">
+        {% block content %}{% endblock %}
+        <footer class="page-footer">
+          <span>{{ icon("leaf") }} Каждый шаг имеет значение.</span>
+          <span class="demo-badge"
+                title="Тестовый сценарий на 9 ноября 2026. Данные временные; БД и ИИ не подключены."><i></i> Демо-режим</span>
+        </footer>
+      </div>
+    </main>
+    <div class="toast-stack"
+         id="toast-stack"
+         role="status"
+         aria-live="polite"
+         aria-atomic="false">
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="toast {{ category }}">
+          {{ icon('circle-check' if category == 'success' else 'info') }}
+          <p>{{ message }}</p>
+          <button class="icon-button"
+                  data-dismiss-toast
+                  aria-label="Закрыть уведомление">{{ icon("x") }}</button>
+        </div>
+      {% endfor %}
+    </div>
+    {% block modals %}{% endblock %}
+  </body>
+</html>
