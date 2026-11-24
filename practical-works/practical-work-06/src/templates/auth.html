@@ -1,0 +1,130 @@
+{% from 'partials/macros.html' import icon, brand, csrf_field with context %}
+<!DOCTYPE html>
+<html lang="ru" data-theme="light" data-font="normal">
+  <head>{% include "partials/head.html" %}<title>Вход · бережно</title></head>
+  <body class="auth-body">
+    {% include "partials/icons.html" %}
+    <main class="auth-shell">
+      <div class="auth-brand">{{ brand() }}</div>
+      <section class="card auth-card" aria-labelledby="auth-title">
+        <span class="icon-tile auth-welcome-icon sage-tile">{{ icon("sprout") }}</span>
+        <h1 id="auth-title">
+          Маленькие шаги.
+          <br>
+          <span>Твой большой путь.</span>
+        </h1>
+        <p class="auth-subtitle">Привычки без давления и с заботой о себе.</p>
+        <div class="segmented auth-tabs"
+             role="tablist"
+             aria-label="Вход или регистрация"><button type="button"
+                                                       role="tab"
+                                                       id="login-tab"
+                                                       data-auth-tab="login"
+                                                       aria-controls="login-panel"
+                                                       aria-selected="{{ 'true' if tab == 'login' else 'false' }}"
+                                                       tabindex="{{ '0' if tab == 'login' else '-1' }}"
+                                                       class="{% if tab == 'login' %}is-active{% endif %}">Вход</button><button type="button"
+                                                                                                                                role="tab"
+                                                                                                                                id="register-tab"
+                                                                                                                                data-auth-tab="register"
+                                                                                                                                aria-controls="register-panel"
+                                                                                                                                aria-selected="{{ 'true' if tab == 'register' else 'false' }}"
+                                                                                                                                tabindex="{{ '0' if tab == 'register' else '-1' }}"
+                                                                                                                                class="{% if tab == 'register' %}is-active{% endif %}">Регистрация</button></div>
+        <div class="auth-demo-warning">
+          {{ icon("info") }}
+          <p>Демо-режим: можно войти с любыми тестовыми данными. <strong>Не вводи настоящий пароль.</strong></p>
+        </div>
+        {# TODO(INTEGRATION): error из auth.py. #}
+        <div class="form-errors"
+             id="auth-error"
+             role="alert"
+             {% if not error %}hidden{% endif %}>{{ error }}</div>
+        <div id="login-panel"
+             role="tabpanel"
+             aria-labelledby="login-tab"
+             {% if tab != 'login' %}hidden{% endif %}>
+          <form action="/login" method="post" class="auth-form">
+            {{ csrf_field() }}
+            <div class="form-field">
+              <label class="field-label" for="login-username">Логин</label><input id="login-username"
+                                                                                  name="login"
+                                                                                  placeholder="Например, evgeny"
+                                                                                  autocomplete="off"
+                                                                                  maxlength="80"
+                                                                                  required>
+            </div>
+            <div class="form-field">
+              <label class="field-label" for="login-password">Пароль</label>
+              <div class="password-field">
+                <input id="login-password"
+                       type="password"
+                       name="password"
+                       placeholder="Любой тестовый пароль"
+                       autocomplete="off"
+                       maxlength="128"
+                       required><button type="button"
+                                        class="icon-button"
+                                        data-toggle-password="login-password"
+                                        aria-label="Показать пароль"
+                                        aria-pressed="false">{{ icon("eye") }}</button>
+              </div>
+            </div>
+            <button class="button button-primary button-full"
+                    type="submit">Войти {{ icon("arrow-right") }}</button>
+          </form>
+        </div>
+        <div id="register-panel"
+             role="tabpanel"
+             aria-labelledby="register-tab"
+             {% if tab != 'register' %}hidden{% endif %}>
+          <form action="/register" method="post" class="auth-form">
+            {{ csrf_field() }}
+            <div class="form-field">
+              <label class="field-label" for="register-name">Как тебя зовут?</label><input id="register-name"
+                                                                                           name="name"
+                                                                                           placeholder="Твоё имя"
+                                                                                           autocomplete="off"
+                                                                                           maxlength="80"
+                                                                                           required>
+            </div>
+            <div class="form-field">
+              <label class="field-label" for="register-username">Логин</label><input id="register-username"
+                                                                                     name="login"
+                                                                                     placeholder="Придумай тестовый логин"
+                                                                                     autocomplete="off"
+                                                                                     maxlength="80"
+                                                                                     required>
+            </div>
+            <div class="form-field">
+              <label class="field-label" for="register-password">Пароль</label>
+              <div class="password-field">
+                <input id="register-password"
+                       type="password"
+                       name="password"
+                       placeholder="Не используй настоящий пароль"
+                       autocomplete="off"
+                       maxlength="128"
+                       required><button type="button"
+                                        class="icon-button"
+                                        data-toggle-password="register-password"
+                                        aria-label="Показать пароль"
+                                        aria-pressed="false">{{ icon("eye") }}</button>
+              </div>
+            </div>
+            <button class="button button-primary button-full"
+                    type="submit">Начать свой путь {{ icon("arrow-right") }}</button>
+          </form>
+        </div>
+        <p class="auth-privacy">{{ icon("shield-check") }} Пароль не сохраняется и не проверяется.</p>
+        <noscript>
+          <p>Выбери экран: <a href="/auth?tab=login">Вход</a> · <a href="/auth?tab=register">Регистрация</a></p>
+        </noscript>
+      </section>
+      <a href="{{ url_for('today') }}"
+         class="text-link auth-demo-link">Посмотреть демо без входа {{ icon("arrow-right") }}</a>
+      <p class="auth-footer">С заботой, команда «Котики за ЗОЖ»</p>
+    </main>
+    <div class="toast-stack" id="toast-stack" role="status" aria-live="polite"></div>
+  </body>
+</html>

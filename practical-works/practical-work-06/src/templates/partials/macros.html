@@ -1,0 +1,97 @@
+{% macro icon(name, extra='') -%}
+  <svg class="icon {{ extra }}"
+       width="24"
+       height="24"
+       viewBox="0 0 24 24"
+       fill="none"
+       stroke="currentColor"
+       stroke-width="1.7"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       aria-hidden="true"
+       focusable="false">
+    <use href="#icon-{{ name }}"></use>
+  </svg>
+{%- endmacro %}
+{% macro brand() -%}
+  <a class="brand"
+     href="{{ url_for('today') }}"
+     aria-label="бережно — на главную">
+    <img class="brand-cat"
+         src="{{ url_for('static', filename='images/brand-cat.png') }}"
+         width="89"
+         height="52"
+         alt=""
+         aria-hidden="true"
+         decoding="async">
+    <span class="brand-wordmark">бережно</span>
+  </a>
+{%- endmacro %}
+{% macro csrf_field() -%}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  {% if demo_token %}<input type="hidden" name="demo_token" value="{{ demo_token }}">{% endif %}
+{%- endmacro %}
+{% macro day_picker(selected, prefix='habit', short=false) -%}
+  <div class="day-picker" data-days-group>
+    {% for day in days %}
+      <label class="day-option" title="{{ day.name }}">
+        <input type="checkbox"
+               name="days"
+               value="{{ day.value }}"
+               id="{{ prefix }}-day-{{ day.value }}"
+               {% if day.value in selected %}checked{% endif %}
+               aria-label="{{ day.name }}">
+        <span aria-hidden="true">{{ day.short if short else day.letter }}</span>
+      </label>
+    {% endfor %}
+  </div>
+  <p class="field-error" data-days-error hidden>Выбери хотя бы один день недели.</p>
+{%- endmacro %}
+{% macro error_box(errors) -%}
+  {% if errors %}
+    <div class="form-errors" role="alert" tabindex="-1" data-form-errors>
+      <strong>Давай кое-что уточним</strong>
+      <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    </div>
+  {% endif %}
+{%- endmacro %}
+{% macro task_row(habit, status, paused) -%}
+  <div class="task-row {% if status in ['done', 'minimum'] %}is-complete{% endif %}"
+       data-task-id="{{ habit.id }}" data-task-status="{{ status or 'pending' }}">
+    <span class="task-check {% if status in ['done', 'minimum'] %}is-checked{% endif %}"
+          aria-hidden="true">{% if status in ["done", "minimum"] %}{{ icon("check") }}{% endif %}</span>
+    <div class="task-description">
+      <h3>{{ habit.task }}</h3>
+      <p>{% if status == "minimum" %}Минимум: {{ habit.minimum }}{% else %}После {{ habit.trigger }} <span class="meta-dot">·</span> {{ habit.duration }}{% endif %}</p>
+    </div>
+    <form action="{{ url_for('log_habit', habit_id=habit.id) }}"
+          method="post"
+          class="task-actions" data-habit-log>
+      {{ csrf_field() }}
+      {% if status in ["done", "minimum"] %}
+        <button class="status-reset"
+                name="status"
+                value="reset"
+                aria-label="Отменить отметку: {{ habit.name }}"
+                {% if paused %}disabled{% endif %}>
+          {{ 'Готово' if status == 'done' else 'Минимум сделан' }} {{ icon("rotate-ccw") }}
+        </button>
+      {% elif status == "skipped" %}
+        <button class="text-button"
+                name="status"
+                value="reset"
+                {% if paused %}disabled{% endif %}>Вернуть в план {{ icon("rotate-ccw") }}</button>
+      {% else %}
+        <button class="button button-primary button-small"
+                name="status"
+                value="done"
+                {% if paused %}disabled{% endif %}>{{ icon("check") }} Сделано</button>
+        <button class="button button-soft button-small"
+                name="status"
+                value="minimum"
+                title="{{ habit.minimum }}"
+                {% if paused %}disabled{% endif %}>Минимум</button>
+      {% endif %}
+    </form>
+  </div>
+{%- endmacro %}

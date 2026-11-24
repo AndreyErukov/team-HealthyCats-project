@@ -1,0 +1,64 @@
+/* «бережно» · небольшой слой движения поверх основной вёрстки.
+   Ни звука, ни конфетти, ни бесконечных декоративных анимаций. */
+:root {
+  --motion-fast: 140ms;
+  --motion-normal: 260ms;
+  --motion-slow: 650ms;
+  --ease-soft: cubic-bezier(.22, 1, .36, 1);
+}
+body { transition: background-color var(--motion-normal), color var(--motion-normal); }
+.card, .period-card, .focus-card, .care-banner {
+  transition: background-color var(--motion-normal), border-color var(--motion-normal), box-shadow var(--motion-normal);
+}
+.button, .icon-button, .nav-link, .filter-tab, .template-option, .theme-option, .heat-cell, .text-button, .status-reset, .auth-tabs > button {
+  transition: transform var(--motion-fast) var(--ease-soft), background-color 180ms, color 180ms, border-color 180ms, box-shadow 180ms;
+}
+.button, .icon-button, .nav-link, .filter-tab { position: relative; isolation: isolate; overflow: hidden; }
+.button:active:not(:disabled), .template-option:active { transform: translateY(1px) scale(.975); }
+.icon-button:active:not(:disabled) { transform: scale(.92); }
+.nav-link:active, .filter-tab:active, .text-button:active:not(:disabled), .status-reset:active:not(:disabled), .auth-tabs > button:active { transform: scale(.98); }
+/* У переключателя видимости пароля уже есть translateY(-50%). */
+.password-field .icon-button:active { transform: translateY(-50%) scale(.92); }
+.day-option > span, .reason-option > span, .segmented label > span {
+  transition: background-color 180ms, color 180ms, border-color 180ms, box-shadow 180ms;
+}
+.day-option:active > span, .reason-option:active > span { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover:not(:disabled):not(:active) { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(35, 78, 47, .13); }
+  .button-outline:hover:not(:disabled):not(:active), .button-white:hover:not(:disabled):not(:active) { transform: translateY(-1px); }
+  .template-option:hover:not(:active) { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .theme-option:hover { border-color: var(--border-strong); }
+  .habit-card:hover { box-shadow: 0 5px 18px rgba(30, 57, 39, .045); }
+}
+:is(.button, .icon-button, .nav-link, .filter-tab) > .press-wave { position: absolute; display: block; border-radius: 50%; background: currentColor; pointer-events: none; opacity: 0; z-index: -1; }
+/* Шириной управляет motion.js: одна анимация, а не два параллельных transition. */
+.progress-track > span, .stat-progress > span { transition: background-color 180ms; }
+/* Иначе браузер цепляется за блок советов ниже плана и сдвигает страницу
+   при анимированном изменении высоты задачи. Только экран с живыми отметками. */
+html.has-live-plan { overflow-anchor: none; }
+.plan-counter { display: inline-block; transform-origin: right center; }
+.task-check, .status-reset, .task-description h3 { transition: color 180ms, background-color 180ms, border-color 180ms; }
+.task-row { border-radius: .5rem; }
+.daily-plan[aria-busy='true'] button:disabled { opacity: .68; cursor: wait; }
+.daily-plan button.is-loading { opacity: 1; position: relative; overflow: hidden; }
+.daily-plan button.is-loading::after {
+  content: ''; position: absolute; left: 12%; right: 12%; bottom: .125rem; height: 2px;
+  border-radius: 2px; background: currentColor; opacity: .45; transform-origin: left center;
+  animation: saving-line 850ms ease-in-out infinite alternate;
+}
+@keyframes saving-line { from { transform: scaleX(.18); opacity: .25; } to { transform: scaleX(1); opacity: .6; } }
+.toast[data-closing] { pointer-events: none; }
+.toast.error { border-color: var(--danger); }
+.toast.error > .icon { color: var(--danger); }
+.toast-action { flex-shrink: 0; font-size: .6875rem; }
+@media (max-width: 600px) { .toast:has(.toast-action) { flex-wrap: wrap; } .toast:has(.toast-action) p { flex-basis: calc(100% - 2rem); } }
+
+/* Системный reduced motion отключает и CSS, и Web Animations в motion.js. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .button:active, .icon-button:active, .nav-link:active, .filter-tab:active, .template-option:active, .text-button:active, .status-reset:active, .auth-tabs > button:active,
+  .button:hover, .template-option:hover, .day-option:active > span, .reason-option:active > span { transform: none !important; }
+  .password-field .icon-button:active { transform: translateY(-50%) !important; }
+  .press-wave { display: none; }
+  .daily-plan button.is-loading::after { transform: none; }
+}

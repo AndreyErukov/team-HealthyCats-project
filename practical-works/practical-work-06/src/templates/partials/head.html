@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+      content="бережно — полезные привычки без давления. Маленькие шаги, гибкое расписание и поддержка в своём темпе.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon"
+      href="{{ url_for('static', filename='favicon.svg', v='berezhno-1') }}"
+      type="image/svg+xml">
+{# Применяем настройки ДО CSS, чтобы тёмная тема не мигала при переходах. #}
+<script>
+(function () {
+  try {
+    var theme = localStorage.getItem('healthycats.theme');
+    var font = localStorage.getItem('healthycats.font');
+    document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.dataset.font = font === 'large' ? 'large' : 'normal';
+  } catch (e) { /* Закрытое хранилище: остаются безопасные значения по умолчанию. */ }
+})();
+</script>
+<link rel="preload"
+      href="{{ url_for('static', filename='fonts/Manrope-variable.woff2') }}"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="{{ url_for('static', filename='fonts/Nunito-variable.woff2') }}"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css', v='berezhno-1') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/motion.css', v='motion-1') }}">
+<script src="{{ url_for('static', filename='js/motion.js', v='motion-1') }}" defer></script>
+<script src="{{ url_for('static', filename='js/main.js', v='motion-1') }}" defer></script>
+<script src="{{ url_for('static', filename='js/today.js', v='motion-1') }}" defer></script>
