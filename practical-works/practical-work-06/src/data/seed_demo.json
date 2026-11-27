@@ -1,0 +1,1563 @@
+{
+  "users": [
+    {
+      "name": "Артём",
+      "login": "artem",
+      "work_days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "reminders": true,
+      "pauses": [],
+      "habits": [
+        {
+          "key": "artem_read",
+          "name": "Читать каждый день",
+          "type": "useful",
+          "trigger": "обеда",
+          "action": "прочитаю 10 страниц",
+          "period": "day",
+          "goal": "10 страниц",
+          "minimum": "1 страница",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "is_focus": true,
+          "replacement_plan": "",
+          "icon": "book-open",
+          "color": "sage",
+          "created_at": "2026-10-20"
+        },
+        {
+          "key": "artem_water",
+          "name": "Стакан воды утром",
+          "type": "useful",
+          "trigger": "пробуждения",
+          "action": "выпью стакан воды",
+          "period": "morning",
+          "goal": "1 стакан",
+          "minimum": "Несколько глотков",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "is_focus": false,
+          "replacement_plan": "",
+          "icon": "droplet",
+          "color": "blue",
+          "created_at": "2026-10-20"
+        },
+        {
+          "key": "artem_walk",
+          "name": "Прогулка после пар",
+          "type": "useful",
+          "trigger": "последней пары",
+          "action": "прогуляюсь 15 минут",
+          "period": "day",
+          "goal": "15 минут",
+          "minimum": "5 минут до остановки",
+          "days": [
+            0,
+            2,
+            4
+          ],
+          "is_focus": false,
+          "replacement_plan": "",
+          "icon": "footprints",
+          "color": "sand",
+          "created_at": "2026-10-22"
+        },
+        {
+          "key": "artem_phone",
+          "name": "Отложить телефон перед сном",
+          "type": "replacement",
+          "trigger": "желания полистать ленту в кровати",
+          "action": "уберу телефон на зарядку и сделаю 5 вдохов",
+          "period": "evening",
+          "goal": "20 минут без экрана перед сном",
+          "minimum": "Отложить телефон на 3 минуты",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "is_focus": false,
+          "replacement_plan": "Положить телефон на зарядку подальше от кровати и выпить глоток воды",
+          "icon": "sprout",
+          "color": "rose",
+          "created_at": "2026-10-22"
+        }
+      ],
+      "logs": [
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-10-30",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-10-30",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-10-31",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-10-31",
+          "status": "skipped",
+          "reason": "forgot"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-10-31",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-01",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-01",
+          "status": "skipped",
+          "reason": "forgot"
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-03",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-03",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-03",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-04",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-04",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-04",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-04",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-06",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-06",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-06",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-06",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-07",
+          "status": "skipped",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-07",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-08",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-08",
+          "status": "skipped",
+          "reason": "forgot"
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-10",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-11",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-11",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-11",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-11",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-13",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-13",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-13",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-13",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-14",
+          "status": "skipped",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-14",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-15",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-15",
+          "status": "skipped",
+          "reason": "forgot"
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-16",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-16",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-16",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-16",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-17",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-17",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-17",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-18",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-19",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-19",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-19",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-20",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-20",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-21",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-21",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-22",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-22",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-24",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-24",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-24",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-26",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-26",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-26",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_phone",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_read",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "artem_walk",
+          "log_date": "2026-11-27",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "artem_water",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "name": "Мария",
+      "login": "maria",
+      "work_days": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "reminders": true,
+      "pauses": [
+        {
+          "start_date": "2026-11-16",
+          "end_date": "2026-11-17",
+          "is_active": false
+        }
+      ],
+      "habits": [
+        {
+          "key": "maria_water",
+          "name": "Стакан воды утром",
+          "type": "useful",
+          "trigger": "кофе",
+          "action": "выпью стакан воды",
+          "period": "morning",
+          "goal": "1 стакан",
+          "minimum": "Несколько глотков",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "is_focus": true,
+          "replacement_plan": "",
+          "icon": "droplet",
+          "color": "blue",
+          "created_at": "2026-10-18"
+        },
+        {
+          "key": "maria_stretch",
+          "name": "Разминка для спины",
+          "type": "useful",
+          "trigger": "созвона",
+          "action": "потяну плечи и сделаю 5 наклонов",
+          "period": "day",
+          "goal": "5 минут разминки",
+          "minimum": "Потянуть плечи 1 минуту",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "is_focus": false,
+          "replacement_plan": "",
+          "icon": "mountain",
+          "color": "sand",
+          "created_at": "2026-10-18"
+        },
+        {
+          "key": "maria_english",
+          "name": "5 минут английского",
+          "type": "useful",
+          "trigger": "завтрака",
+          "action": "повторю 5 новых слов",
+          "period": "morning",
+          "goal": "5 минут практики",
+          "minimum": "Повторить 2 слова",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "is_focus": false,
+          "replacement_plan": "",
+          "icon": "lightbulb",
+          "color": "sage",
+          "created_at": "2026-10-19"
+        }
+      ],
+      "logs": [
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-10-30",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-03",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-03",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-03",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-04",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-04",
+          "status": "skipped",
+          "reason": "time"
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-04",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-05",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-06",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-06",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-06",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-09",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-10",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-11",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-11",
+          "status": "skipped",
+          "reason": "time"
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-11",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-12",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-12",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-13",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-13",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-13",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-18",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-19",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-19",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-19",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-23",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-24",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-24",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-24",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-25",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-25",
+          "status": "skipped",
+          "reason": "time"
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-26",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-26",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-26",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_english",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_stretch",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "maria_water",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "name": "Игорь",
+      "login": "igor",
+      "work_days": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "reminders": false,
+      "pauses": [],
+      "habits": [
+        {
+          "key": "igor_walk",
+          "name": "Короткая прогулка",
+          "type": "useful",
+          "trigger": "ужина",
+          "action": "выйду на 10 минут",
+          "period": "evening",
+          "goal": "10 минут на улице",
+          "minimum": "Выйти к подъезду",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "is_focus": true,
+          "replacement_plan": "",
+          "icon": "footprints",
+          "color": "sage",
+          "created_at": "2026-10-15"
+        },
+        {
+          "key": "igor_sweets",
+          "name": "Чай вместо сладкого вечером",
+          "type": "replacement",
+          "trigger": "желания взять сладкое после ужина",
+          "action": "заварю чай и посижу пару минут",
+          "period": "evening",
+          "goal": "Чай вместо сладкого",
+          "minimum": "Выпить стакан воды и подождать 3 минуты",
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "is_focus": false,
+          "replacement_plan": "Поставить чайник и выбрать чай, пока проходит волна желания.",
+          "icon": "heart",
+          "color": "rose",
+          "created_at": "2026-10-15"
+        }
+      ],
+      "logs": [
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-10-29",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-10-30",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-10-31",
+          "status": "skipped",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-10-31",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-01",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-01",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-02",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-03",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-03",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-04",
+          "status": "skipped",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-04",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-05",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-06",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-06",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-07",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-07",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-08",
+          "status": "skipped",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-08",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-09",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-10",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-11",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-11",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-12",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-13",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-13",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-14",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-14",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-15",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-15",
+          "status": "skipped",
+          "reason": "plans"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-16",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-16",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-17",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-17",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-18",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-18",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-19",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-19",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-20",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-21",
+          "status": "relapse",
+          "reason": "hard"
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-21",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-22",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-22",
+          "status": "minimum",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-23",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-24",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-24",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-25",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-25",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-26",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-26",
+          "status": "skipped",
+          "reason": "energy"
+        },
+        {
+          "habit_key": "igor_sweets",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        },
+        {
+          "habit_key": "igor_walk",
+          "log_date": "2026-11-27",
+          "status": "done",
+          "reason": null
+        }
+      ]
+    }
+  ]
+}
