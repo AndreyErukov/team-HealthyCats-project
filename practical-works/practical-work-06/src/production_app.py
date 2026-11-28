@@ -140,7 +140,10 @@ def create_app(test_config=None):
         plan = daily_planner.build_daily_plan(g.user["id"], target)
         plan["stats"] = streak_calculator.build_user_stats(g.user["id"], target)
         plan["tip"] = miss_support.get_daily_tip(target)
-        plan["soft_habit_id"] = session.get("soft_habit_id")
+        soft_habit_id = session.get("soft_habit_id")
+        if session.get("soft_habit_date") != target.isoformat():
+            soft_habit_id = None
+        plan["soft_habit_id"] = soft_habit_id
         return render_template("today.html", active="today", **plan)
 
     @app.get("/habits")
@@ -190,6 +193,7 @@ def create_app(test_config=None):
             return form_context(data, errors, 400)
         saved_id = database.save_habit(g.user["id"], data)
         session.pop("soft_habit_id", None)
+        session.pop("soft_habit_date", None)
         flash("Привычка сохранена.", "success")
         return redirect(url_for("edit_habit", habit_id=saved_id), code=303)
 
@@ -216,6 +220,9 @@ def create_app(test_config=None):
             database.upsert_habit_log(g.user["id"], habit_id, target.isoformat(), status)
             flash("Минимум — тоже прогресс. Отметка сохранена." if status == "minimum"
                   else "Выполнение сохранено. Хороший шаг!", "success")
+        if session.get("soft_habit_id") == habit_id:
+            session.pop("soft_habit_id", None)
+            session.pop("soft_habit_date", None)
         return redirect(url_for("today"), code=303)
 
     @app.get("/support")
@@ -247,11 +254,13 @@ def create_app(test_config=None):
             flash("Фокус уже отмечен. Можно спокойно оставить день как есть.", "info")
         elif action == "step":
             session["soft_habit_id"] = focus["id"]
+            session["soft_habit_date"] = current_date().isoformat()
             flash("Мягкий шаг выбран. Выполнение будет засчитано только после отдельной отметки.", "success")
         else:
             miss_support.record_miss_reason(g.user["id"], focus["id"],
                                             current_date().isoformat(), reason)
             session.pop("soft_habit_id", None)
+            session.pop("soft_habit_date", None)
             flash("Пропуск сохранён без штрафов. Можно вернуться в следующий подходящий день.", "info")
         return redirect(url_for("today"), code=303)
 
