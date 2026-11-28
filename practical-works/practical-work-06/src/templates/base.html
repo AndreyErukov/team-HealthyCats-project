@@ -53,11 +53,10 @@
         <div class="profile">
           <a href="{{ url_for('settings') }}" class="profile-link"><span class="avatar">Е</span><span><strong>{{ user.name }}</strong><small>Мой профиль</small></span></a>
           {# TODO(INTEGRATION): auth.py. Пока ссылка-заглушка, как в ТЗ. #}
-          <a href="#"
+          <a href="{{ url_for('logout') }}"
              class="icon-button profile-exit"
-             data-demo-logout
-             aria-label="Выйти — пока недоступно"
-             title="Авторизация пока не подключена">{{ icon("log-out") }}</a>
+             aria-label="Выйти"
+             title="Завершить сеанс">{{ icon("log-out") }}</a>
         </div>
       </div>
     </aside>
@@ -67,7 +66,7 @@
         <footer class="page-footer">
           <span>{{ icon("leaf") }} Каждый шаг имеет значение.</span>
           <span class="demo-badge"
-                title="Тестовый сценарий на 9 ноября 2026. Данные временные; БД и ИИ не подключены."><i></i> Демо-режим</span>
+                title="{{ 'Тестовый сценарий; данные хранятся во временной сессии.' if demo_mode else 'Данные аккаунта и отметки сохраняются в SQLite.' }}"><i></i> {{ 'Демо-режим' if demo_mode else 'Рабочий режим' }}</span>
         </footer>
       </div>
     </main>

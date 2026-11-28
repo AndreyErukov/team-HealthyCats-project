@@ -8,7 +8,7 @@
       <h1>Ты движешься вперёд<span class="greeting-dot">.</span></h1>
       <p class="page-subtitle">Регулярность — это не идеальная серия, а возвращение к своим целям.</p>
     </div>
-    <span class="quiet-chip">{{ icon("calendar-days") }} Ноябрь 2026</span>
+    <span class="quiet-chip">{{ icon("calendar-days") }} {{ month_name if month_name is defined else 'Ноябрь' }} {{ month_year if month_year is defined else 2026 }}</span>
   </header>
   <div class="stats-grid">
     <article class="card stat-card"><div class="stat-label">Текущая серия<span class="icon-tile flame-tile">{{ icon("flame") }}</span></div><p class="stat-value">{{ stats.streak }} <span>{{ stats.streak|day_word }}</span></p><p class="stat-description">Самая длинная: <strong>{{ stats.longest }} {{ stats.longest|day_word }}</strong></p><div class="stat-decoration streak-dots" aria-hidden="true">{% for i in range(7) %}<span class="{% if i < 4 %}filled{% endif %}"></span>{% endfor %}</div></article>
@@ -17,7 +17,7 @@
       <p class="stat-value">{{ stats.completed }} <span>из {{ stats.planned }}</span></p>
       <p class="stat-description">Это устойчивый прогресс</p>
       <div class="stat-decoration stat-progress" aria-hidden="true">
-        <span style="width: {{ stats.completed / stats.planned * 100 }}%"></span>
+        <span style="width: {{ (stats.completed / stats.planned * 100) if stats.planned else 0 }}%"></span>
       </div>
     </article>
     <article class="card stat-card">
@@ -32,20 +32,20 @@
         <h2>Регулярность по дням</h2>
         <p>Чем насыщеннее оттенок, тем больше привычек выполнено.</p>
       </div>
-      <span class="demo-label">Тестовая матрица</span>
+      {% if demo_mode %}<span class="demo-label">Тестовая матрица</span>{% else %}<span class="quiet-chip">История отметок</span>{% endif %}
     </div>
     {# TODO(INTEGRATION): build_heatmap_matrix. Класс уровня уже готов для cell.level. #}
-    <table class="heatmap-table"><caption class="sr-only">Демонстрационная тепловая карта за ноябрь 2026. От нуля до четырёх выполненных привычек в день.</caption><thead><tr>{% for day in days %}<th scope="col">{{ day.short|upper }}</th>{% endfor %}</tr></thead><tbody>{% for week in heatmap %}<tr>{% for cell in week %}<td>{% if cell.day %}<button type="button"
+    <table class="heatmap-table"><caption class="sr-only">Тепловая карта за {{ (month_name if month_name is defined else "Ноябрь")|lower }} {{ month_year if month_year is defined else 2026 }}. Цвет показывает число выполненных привычек в день.</caption><thead><tr>{% for day in days %}<th scope="col">{{ day.short|upper }}</th>{% endfor %}</tr></thead><tbody>{% for week in heatmap %}<tr>{% for cell in week %}<td>{% if cell.day %}<button type="button"
                                                                                                                                                                                                                                                                                                                                                              class="heat-cell heat-level-{{ cell.level }}"
                                                                                                                                                                                                                                                                                                                                                              data-heat-day="{{ cell.day }}"
                                                                                                                                                                                                                                                                                                                                                              data-heat-level="{{ cell.level }}"
                                                                                                                                                                                                                                                                                                                                                              aria-pressed="false"
-                                                                                                                                                                                                                                                                                                                                                             aria-label="{{ cell.day }} ноября: выполнено {{ cell.level }} из 4 привычек, демо"
-                                                                                                                                                                                                                                                                                                                                                             title="{{ cell.day }} ноября · {{ cell.level }} из 4"><span>{{ cell.day }}</span>{% if cell.level == 4 %}{{ icon("check") }}{% endif %}</button>{% else %}<span class="heat-blank" aria-hidden="true"></span>{% endif %}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
+                                                                                                                                                                                                                                                                                                                                                             aria-label="{{ cell.label|default(cell.day|string + " ноября: выполнено " + cell.level|string + " из 4 привычек") }}"
+                                                                                                                                                                                                                                                                                                                                                             title="{{ cell.label|default(cell.day|string + " ноября · " + cell.level|string + " из 4") }}"><span>{{ cell.day }}</span>{% if cell.level == 4 %}{{ icon("check") }}{% endif %}</button>{% else %}<span class="heat-blank" aria-hidden="true"></span>{% endif %}</td>{% endfor %}</tr>{% endfor %}</tbody></table>
     <div class="heatmap-footer"><p data-heat-summary aria-live="polite">Нажми на день, чтобы увидеть подробности.</p><div class="heat-legend"
                                                                                                                           aria-label="Насыщенность: от нуля до четырёх выполнений"><span>Меньше</span>{% for level in range(5) %}<i class="heat-level-{{ level }}" title="{{ level }} из 4"></i>{% endfor %}<span>Больше</span></div></div>
   </section>
-  <p class="demo-stats-note">{{ icon("info") }} Пока это пример статистики. Значения не пересчитываются после отметок в демо.</p>
+  {% if demo_mode %}<p class="demo-stats-note">{{ icon("info") }} Пока это пример статистики. Значения не пересчитываются после отметок в демо.</p>{% endif %}
   <section class="care-banner stats-banner">
     <span class="banner-icon">{{ icon("sprout") }}</span>
     <div>
