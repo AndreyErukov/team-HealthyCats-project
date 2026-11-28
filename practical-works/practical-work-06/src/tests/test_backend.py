@@ -57,7 +57,9 @@ def create_habit(client, **updates):
     assert response.status_code == 303
     with client.session_transaction() as state:
         user_id = state["user_id"]
-    return database.get_user_habits(user_id)[-1]
+    saved = database.get_user_habits(user_id)[-1]
+    assert saved["days"] == list(range(7))
+    return saved
 
 
 def test_register_and_password_is_hashed(app):
