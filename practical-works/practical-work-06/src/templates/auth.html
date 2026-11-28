@@ -31,10 +31,17 @@
                                                                                                                                 aria-selected="{{ 'true' if tab == 'register' else 'false' }}"
                                                                                                                                 tabindex="{{ '0' if tab == 'register' else '-1' }}"
                                                                                                                                 class="{% if tab == 'register' %}is-active{% endif %}">Регистрация</button></div>
+{% if demo_mode %}
         <div class="auth-demo-warning">
           {{ icon("info") }}
           <p>Демо-режим: можно войти с любыми тестовыми данными. <strong>Не вводи настоящий пароль.</strong></p>
         </div>
+        {% else %}
+        <div class="auth-demo-warning">
+          {{ icon("shield-check") }}
+          <p>Рабочий режим: аккаунт защищён хешем пароля. Используй уникальный пароль, не совпадающий с паролями других сервисов.</p>
+        </div>
+        {% endif %}
         {# TODO(INTEGRATION): error из auth.py. #}
         <div class="form-errors"
              id="auth-error"
@@ -50,7 +57,7 @@
               <label class="field-label" for="login-username">Логин</label><input id="login-username"
                                                                                   name="login"
                                                                                   placeholder="Например, evgeny"
-                                                                                  autocomplete="off"
+                                                                                  autocomplete="username"
                                                                                   maxlength="80"
                                                                                   required>
             </div>
@@ -61,7 +68,7 @@
                        type="password"
                        name="password"
                        placeholder="Любой тестовый пароль"
-                       autocomplete="off"
+                       autocomplete="current-password"
                        maxlength="128"
                        required><button type="button"
                                         class="icon-button"
@@ -92,7 +99,7 @@
               <label class="field-label" for="register-username">Логин</label><input id="register-username"
                                                                                      name="login"
                                                                                      placeholder="Придумай тестовый логин"
-                                                                                     autocomplete="off"
+                                                                                     autocomplete="username"
                                                                                      maxlength="80"
                                                                                      required>
             </div>
@@ -103,7 +110,7 @@
                        type="password"
                        name="password"
                        placeholder="Не используй настоящий пароль"
-                       autocomplete="off"
+                       autocomplete="new-password"
                        maxlength="128"
                        required><button type="button"
                                         class="icon-button"
@@ -116,13 +123,12 @@
                     type="submit">Начать свой путь {{ icon("arrow-right") }}</button>
           </form>
         </div>
-        <p class="auth-privacy">{{ icon("shield-check") }} Пароль не сохраняется и не проверяется.</p>
+        <p class="auth-privacy">{{ icon("shield-check") }} {% if demo_mode %}Пароль не сохраняется и не проверяется.{% else %}Пароль хранится только в виде криптографического хеша.{% endif %}</p>
         <noscript>
           <p>Выбери экран: <a href="/auth?tab=login">Вход</a> · <a href="/auth?tab=register">Регистрация</a></p>
         </noscript>
       </section>
-      <a href="{{ url_for('today') }}"
-         class="text-link auth-demo-link">Посмотреть демо без входа {{ icon("arrow-right") }}</a>
+      {% if demo_mode %}<a href="{{ url_for('today') }}" class="text-link auth-demo-link">Посмотреть демо без входа {{ icon("arrow-right") }}</a>{% endif %}
       <p class="auth-footer">С заботой, команда «Котики за ЗОЖ»</p>
     </main>
     <div class="toast-stack" id="toast-stack" role="status" aria-live="polite"></div>

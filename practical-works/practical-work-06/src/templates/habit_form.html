@@ -38,7 +38,7 @@
       <div class="inline-notice limit-warning"
            id="habit-limit-warning"
            {% if not limit_warning %}hidden{% endif %}
-           role="status">{{ icon("info") }}<p>Больше пяти привычек — заметная нагрузка. Попробуй начать с меньшего. Это пример предупреждения; лимит пока не подключён.</p></div>
+           role="status">{{ icon("info") }}<p>Больше пяти привычек — заметная нагрузка. Попробуй начать с меньшего. Это рекомендация начать с небольшой нагрузки. Сохранение не блокируется.</p></div>
       <form class="card habit-form"
             id="habit-form"
             action="{{ url_for('save_habit') }}"
@@ -167,7 +167,7 @@
     <div class="template-list">{% for template in templates %}<button type="button"
                                                                       class="template-option"
                                                                       data-template-id="{{ template.id }}"><span class="icon-tile sage-tile">{{ icon(template.icon) }}</span><span><strong>{{ template.title }}</strong><small>{{ template.description }}</small></span>{{ icon("arrow-right") }}</button>{% endfor %}</div>
-    <p class="dialog-footnote">Демонстрационный каталог · 3 шаблона</p>
+    <p class="dialog-footnote">{{ "Демонстрационный каталог" if demo_mode else "Каталог проекта" }} · {{ templates|length }} шаблонов</p>
   </dialog>
   <script type="application/json" id="habit-templates">{{ templates|tojson }}</script>
 {% endblock %}

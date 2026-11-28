@@ -19,7 +19,7 @@ from demo_data import (DATE_LABEL, DEMO_DATE, USER, DAYS, PERIODS, REASONS, TEMP
                        STATS, HEATMAP, fresh_state, empty_habit)
 
 
-def create_app(test_config=None):
+def create_demo_app(test_config=None):
     app = Flask(__name__)
     # HTTPS-превью внутри iframe: отдельная partitioned-cookie (Flask 3.1+).
     # При обычном локальном запуске остаётся SameSite=Lax, без Secure.
@@ -115,7 +115,7 @@ def create_app(test_config=None):
                 "csrf_token": session.get("csrf_token", ""),
                 "demo_token": getattr(g, "demo_token", ""),
                 "get_flashed_messages": messages,
-                "habit_count": len(get_state()["habits"]), "demo_date": DEMO_DATE}
+                "habit_count": len(get_state()["habits"]), "demo_date": DEMO_DATE, "demo_mode": True}
 
     @app.template_filter("day_word")
     def day_word(value):
@@ -373,6 +373,19 @@ def create_app(test_config=None):
         return render_template("error.html", active="", code=error.code, message=message), error.code
 
     return app
+
+
+
+def create_app(test_config=None):
+    """Фабрика приложения.
+
+    Совместимость с регрессионными тестами старого стенда сохранена через
+    TESTING=True. Обычный запуск использует production_app и настоящую SQLite.
+    """
+    if test_config and test_config.get("TESTING") and test_config.get("USE_DEMO", True):
+        return create_demo_app(test_config)
+    from production_app import create_app as create_production_app
+    return create_production_app(test_config)
 
 
 app = create_app()

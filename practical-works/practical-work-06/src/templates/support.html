@@ -20,7 +20,7 @@
                                                                                                                                                                                                                                                                                                                                                           value="{{ reason.id }}"
                                                                                                                                                                                                                                                                                                                                                           data-reason-label="{{ reason.label }}"
                                                                                                                                                                                                                                                                                                                                                           {% if selected_reason == reason.id %}checked{% endif %}
-                                                                                                                                                                                                                                                                                                                                                          required><span>{{ icon(reason.icon) }}<span>{{ reason.label }}</span>{{ icon('check', 'reason-check') }}</span></label>{% endfor %}</div></fieldset><p class="reason-summary" aria-live="polite">Выбрано: <strong data-reason-summary>{% for reason in reasons if reason.id == selected_reason %}{{ reason.label }}{% endfor %}</strong></p><p class="field-hint">Можно просто выбрать причину — объяснение не нужно. В демо она сохранится после выбора следующего шага.</p></section>
+                                                                                                                                                                                                                                                                                                                                                          required><span>{{ icon(reason.icon) }}<span>{{ reason.label }}</span>{{ icon('check', 'reason-check') }}</span></label>{% endfor %}</div></fieldset><p class="reason-summary" aria-live="polite">Выбрано: <strong data-reason-summary>{% for reason in reasons if reason.id == selected_reason %}{{ reason.label }}{% endfor %}</strong></p><p class="field-hint">Можно просто выбрать причину — объяснение не нужно. Причина сохранится вместе с выбранным действием.</p></section>
     <section class="card soft-step-card">
       <div class="section-number">02 <span>Найдём свой темп</span></div>
       <h2>Мягкий следующий шаг</h2>
@@ -49,13 +49,19 @@
             data-disclosure="miss-ai-response"
             aria-controls="miss-ai-response"
             aria-expanded="false">Разобрать с ИИ-помощником {{ icon("arrow-right") }}</button>
-    {# TODO(INTEGRATION): ai_client.py + prepare_ai_miss_context. #}
     <div class="ai-response" id="miss-ai-response" hidden>
+      {% if suggestion is defined %}
+      <span class="demo-label">{{ 'Ответ ИИ-помощника' if suggestion.is_ai else 'Локальная подсказка · ИИ не подключён' }}</span>
+      <h3>{{ suggestion.title }}</h3>
+      <p>{{ suggestion.advice }}</p>
+      <small>{% if suggestion.is_ai %}Ответ сформирован подключённым сервисом.{% else %}Подсказка взята из проверенного локального каталога причин пропуска. Личные данные не отправлялись внешнему сервису.{% endif %}</small>
+      {% else %}
       <span class="demo-label">Готовый пример · не ответ нейросети</span>
       <h3>Не нужно наверстывать. Можно просто вернуться.</h3>
       <p>Попробуй оставить на сегодня одну страницу вместо десяти. Положи книгу рядом с чашкой чая — так о маленьком шаге будет проще вспомнить.</p>
       <p>А если сил совсем нет, выбери паузу. Отдых не отменяет того, что ты уже сделал.</p>
-      <small>Это статический пример интерфейса. ИИ не подключён; выбранная причина никуда не отправляется вне демо-стенда.</small>
+      <small>Это статический пример интерфейса. ИИ не подключён.</small>
+      {% endif %}
     </div>
   </section>
   <a class="text-link return-link"

@@ -59,12 +59,12 @@
           <section class="card profile-settings">
             <span class="avatar avatar-large">Е</span>
             <h2>{{ user.name }}</h2>
-            <p>Демонстрационный профиль</p>
+            <p>{{ "Демонстрационный профиль" if demo_mode else "Личный профиль" }}</p>
             <div class="profile-info-row"><span>Имя пользователя</span><strong>{{ user.name }}</strong></div>
             <a href="{{ url_for('logout') }}"
-               class="button button-outline button-full">{{ icon("log-out") }} Выйти</a><small>Настоящая авторизация пока не подключена. Кнопка откроет экран входа и сбросит демо-сессию.</small>
+               class="button button-outline button-full">{{ icon("log-out") }} Выйти</a><small>{% if demo_mode %}Настоящая авторизация пока не подключена.{% else %}Заверши сеанс, чтобы выйти из аккаунта на этом устройстве.{% endif %}</small>
           </section>
-          <details class="card demo-details">
+          {% if demo_mode %}<details class="card demo-details">
             <summary>{{ icon("info") }} О демоверсии {{ icon("chevron-down") }}</summary>
             <div>
               <p>Серии, статистика, советы и ИИ — заглушки. Изменения привычек и расписания хранятся только в памяти стенда.</p>
@@ -74,7 +74,7 @@
                                           type="submit">{{ icon("rotate-ccw") }} Сбросить демо-данные</button>
               </form>
             </div>
-          </details>
+          </details>{% endif %}
         </aside>
       </div>
 {% endblock %}
