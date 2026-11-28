@@ -58,7 +58,12 @@ def validate_habit_form(form):
     if data["type"] == "replacement" and not data["replacement_plan"]:
         errors.append("Добавь мягкое действие для плана замены.")
 
-    raw_days = form.get("days", [])
+    # days — повторяющееся поле формы. Для Flask MultiDict нужно
+    # использовать getlist(), иначе сохраняется только первый checkbox.
+    if hasattr(form, "getlist"):
+        raw_days = form.getlist("days")
+    else:
+        raw_days = form.get("days", [])
     if isinstance(raw_days, str):
         raw_days = [raw_days]
     days = set()
