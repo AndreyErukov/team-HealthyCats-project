@@ -1,10 +1,11 @@
 """Интеграционные тесты настоящего SQLite-бэкенда."""
-from datetime import date
+from datetime import date, datetime, timedelta
 
 import pytest
 
 import database
 from app import create_app
+import production_app
 
 
 @pytest.fixture()
@@ -225,6 +226,29 @@ def test_sqlite_survives_new_app_instance(app):
     rows = database.get_user_logs(user_id, date.today().isoformat(), date.today().isoformat())
     assert len(rows) == 1
     assert rows[0]["status"] == "done"
+
+
+def test_soft_step_does_not_leak_into_the_next_day(app, monkeypatch):
+    client = app.test_client()
+    register(client)
+    enable_all_days(client)
+    create_habit(client)
+
+    selected = post(client, "/support/step", {"reason": "energy"})
+    assert selected.status_code == 303
+    page = client.get("/today").get_data(as_text=True)
+    assert "Мягкий шаг на сегодня" in page
+
+    original_datetime = production_app.datetime
+
+    class TomorrowDateTime(original_datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return original_datetime.now(tz) + timedelta(days=1)
+
+    monkeypatch.setattr(production_app, "datetime", TomorrowDateTime)
+    next_day = client.get("/today").get_data(as_text=True)
+    assert "Мягкий шаг на сегодня" not in next_day
 
 
 def test_health_endpoint_is_public(app):
