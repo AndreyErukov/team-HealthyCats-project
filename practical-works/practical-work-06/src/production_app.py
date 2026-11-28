@@ -149,6 +149,7 @@ def create_app(test_config=None):
         items, counts = habits_manager.filter_and_sort_habits(
             database.get_user_habits(g.user["id"]), selected
         )
+        items = streak_calculator.enrich_habit_metrics(g.user["id"], items, current_date())
         if selected not in ("all", "useful", "replacement"):
             selected = "all"
         return render_template("habits.html", active="habits", habits=items,
