@@ -103,3 +103,54 @@ def build_user_stats(user_id, target_date=None):
         "planned": planned,
         "minimums": minimums,
     }
+
+
+
+def enrich_habit_metrics(user_id, habits, target_date=None):
+    """Добавляет в карточки привычек текущую серию и дни без срыва."""
+    target_date = target_date or date.today()
+    settings = database.get_user_schedule(user_id)
+    pauses = database.get_user_pauses(user_id)
+    logs = database.get_user_logs(user_id)
+    by_habit = defaultdict(dict)
+    for row in logs:
+        by_habit[int(row["habit_id"])][row["log_date"]] = row["status"]
+
+    for habit in habits:
+        history = by_habit.get(habit["id"], {})
+        try:
+            created = date.fromisoformat(str(habit.get("created_at", ""))[:10])
+        except ValueError:
+            created = target_date
+
+        scheduled_days = set(habit.get("days", [])) & set(settings["work_days"])
+        streak = 0
+        cursor = target_date
+        while cursor >= created:
+            key = cursor.isoformat()
+            if is_date_paused(key, pauses) or cursor.weekday() not in scheduled_days:
+                cursor -= timedelta(days=1)
+                continue
+            status = history.get(key)
+            if status in SUCCESS:
+                streak += 1
+                cursor -= timedelta(days=1)
+                continue
+            if cursor == target_date and status is None:
+                cursor -= timedelta(days=1)
+                continue
+            break
+
+        habit["streak"] = streak
+        if habit.get("type") == "replacement":
+            relapse_dates = [
+                date.fromisoformat(day)
+                for day, status in history.items()
+                if status == "relapse"
+            ]
+            clean_since = max(relapse_dates) if relapse_dates else created
+            habit["clean_days"] = max(0, (target_date - clean_since).days)
+        else:
+            habit["clean_days"] = 0
+
+    return habits
